@@ -103,3 +103,58 @@ function calculate() {
 	currentValue = computed;
 	justEvaluated = true;
 }
+
+function clearAll() {
+	expression = "";
+	currentValue = "0";
+	justEvaluated = false;
+}
+
+function deleteLast() {
+	if (justEvaluated) {
+		clearAll();
+		return;
+	}
+
+	if (currentValue.length > 1) {
+		currentValue = currentValue.slice(0, -1);
+		return;
+	}
+
+	if (expression.length > 0 && isOperator(expression.at(-1))) {
+		expression = expression.slice(0, -1);
+		currentValue = "0";
+		return;
+	}
+
+	currentValue = "0";
+}
+
+function applyPercent() {
+	const numericValue = Number(currentValue);
+	if (!Number.isNaN(numericValue)) {
+		currentValue = String(numericValue / 100);
+	}
+}
+
+function safeEvaluate(rawExpression) {
+	if (!rawExpression) {
+		return currentValue;
+	}
+
+	const sanitized = rawExpression.replace(/[^0-9.+\-*/]/g, "");
+	if (!sanitized) {
+		return currentValue;
+	}
+
+	try {
+		const computed = Function(`"use strict"; return (${sanitized});`)();
+		if (!Number.isFinite(computed)) {
+			return "Erreur";
+		}
+		return String(Number.parseFloat(computed.toFixed(10)));
+	} catch {
+		return "Erreur";
+	}
+}
+
