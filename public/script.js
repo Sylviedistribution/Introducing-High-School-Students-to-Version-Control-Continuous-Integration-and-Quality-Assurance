@@ -158,3 +158,52 @@ function safeEvaluate(rawExpression) {
 	}
 }
 
+keys.addEventListener("click", (event) => {
+	const button = event.target.closest("button");
+	if (!button) {
+		return;
+	}
+
+	const { action, value } = button.dataset;
+
+	if (value && /^[0-9]$/.test(value)) {
+		appendDigit(value);
+	} else if (value && isOperator(value)) {
+		appendOperator(value);
+	} else if (action === "clear") {
+		clearAll();
+	} else if (action === "delete") {
+		deleteLast();
+	} else if (action === "decimal") {
+		appendDecimal();
+	} else if (action === "equals") {
+		calculate();
+	} else if (action === "percent") {
+		applyPercent();
+	}
+
+	updateDisplay();
+});
+
+document.addEventListener("keydown", (event) => {
+	const { key } = event;
+
+	if (/^[0-9]$/.test(key)) {
+		appendDigit(key);
+	} else if (["+", "-", "*", "/"].includes(key)) {
+		appendOperator(key);
+	} else if (key === ".") {
+		appendDecimal();
+	} else if (key === "Enter" || key === "=") {
+		event.preventDefault();
+		calculate();
+	} else if (key === "Backspace") {
+		deleteLast();
+	} else if (key === "Escape") {
+		clearAll();
+	}
+
+	updateDisplay();
+});
+
+updateDisplay();
