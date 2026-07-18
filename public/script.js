@@ -34,3 +34,24 @@ function appendDigit(digit) {
 		currentValue = currentValue === "0" ? digit : `${currentValue}${digit}`;
 	}
 }
+
+function appendOperator(operator) {
+	if (justEvaluated) {
+		expression = currentValue;
+		justEvaluated = false;
+	}
+
+	if (!expression && currentValue) {
+		expression = currentValue;
+	}
+
+	const lastChar = expression.at(-1);
+	if (lastChar && isOperator(lastChar)) {
+		expression = `${expression.slice(0, -1)}${operator}`;
+	} else {
+		expression = `${expression}${operator}`;
+	}
+
+	currentValue = "0";
+}
+
