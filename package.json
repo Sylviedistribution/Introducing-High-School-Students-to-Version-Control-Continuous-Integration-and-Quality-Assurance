@@ -1,0 +1,14 @@
+{
+  "name": "introducing-high-school-students-to-version-control-continuous-integration-and-quality-assurance",
+  "version": "1.0.0",
+  "description": "",
+  "main": "calculator.js",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "type": "commonjs"
+}
