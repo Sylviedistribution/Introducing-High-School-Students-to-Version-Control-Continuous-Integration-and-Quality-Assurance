@@ -66,3 +66,40 @@ function appendDecimal() {
 		currentValue = `${currentValue}.`;
 	}
 }
+
+function safeEvaluate(rawExpression) {
+	if (!rawExpression) {
+		return currentValue;
+	}
+
+	const sanitized = rawExpression.replace(/[^0-9.+\-*/]/g, "");
+	if (!sanitized) {
+		return currentValue;
+	}
+
+	try {
+		const computed = Function(`"use strict"; return (${sanitized});`)();
+		if (!Number.isFinite(computed)) {
+			return "Erreur";
+		}
+		return String(Number.parseFloat(computed.toFixed(10)));
+	} catch {
+		return "Erreur";
+	}
+}
+
+function calculate() {
+	const fullExpression = `${expression}${currentValue}`;
+	const computed = safeEvaluate(fullExpression);
+
+	if (computed === "Erreur") {
+		expression = "";
+		currentValue = "Erreur";
+		justEvaluated = true;
+		return;
+	}
+
+	expression = fullExpression;
+	currentValue = computed;
+	justEvaluated = true;
+}
