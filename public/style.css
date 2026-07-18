@@ -1,6 +1,16 @@
-:root{
-   --bg:#09111f;
-   --accent:#ff9f43;
+:root {
+	--bg-1: #09111f;
+	--bg-2: #13233d;
+	--panel: rgba(12, 18, 31, 0.82);
+	--panel-border: rgba(255, 255, 255, 0.1);
+	--text: #f5f7fb;
+	--muted: #9fb0c8;
+	--key: #1a2438;
+	--key-hover: #25324b;
+	--operator: #ff9f43;
+	--operator-hover: #ffb46b;
+	--accent: #6ee7d8;
+	--shadow: 0 28px 70px rgba(0, 0, 0, 0.4);
 }
 
 body {
@@ -15,11 +25,14 @@ body {
 }
 
 .calculator {
-    width: 320px;
-    margin: 40px auto;
-    padding: 20px;
-    background: white;
-    border: 1px solid #ccc;
+	position: relative;
+	overflow: hidden;
+	padding: 22px;
+	border-radius: 28px;
+	border: 1px solid var(--panel-border);
+	background: var(--panel);
+	box-shadow: var(--shadow);
+	backdrop-filter: blur(18px);
 }
 
 .calculator__display {
