@@ -137,26 +137,6 @@ function applyPercent() {
 	}
 }
 
-function safeEvaluate(rawExpression) {
-	if (!rawExpression) {
-		return currentValue;
-	}
-
-	const sanitized = rawExpression.replace(/[^0-9.+\-*/]/g, "");
-	if (!sanitized) {
-		return currentValue;
-	}
-
-	try {
-		const computed = Function(`"use strict"; return (${sanitized});`)();
-		if (!Number.isFinite(computed)) {
-			return "Erreur";
-		}
-		return String(Number.parseFloat(computed.toFixed(10)));
-	} catch {
-		return "Erreur";
-	}
-}
 
 keys.addEventListener("click", (event) => {
 	const button = event.target.closest("button");
