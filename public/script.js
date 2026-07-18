@@ -55,3 +55,14 @@ function appendOperator(operator) {
 	currentValue = "0";
 }
 
+function appendDecimal() {
+	if (justEvaluated) {
+		expression = "";
+		currentValue = "0";
+		justEvaluated = false;
+	}
+
+	if (!currentValue.includes(".")) {
+		currentValue = `${currentValue}.`;
+	}
+}
