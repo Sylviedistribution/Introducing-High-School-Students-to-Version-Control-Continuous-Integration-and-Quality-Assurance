@@ -1,3 +1,7 @@
+*{
+    box-sizing: border-box;
+}
+
 :root {
 	--bg-1: #09111f;
 	--bg-2: #13233d;
@@ -12,6 +16,10 @@
 	--accent: #6ee7d8;
 	--shadow: 0 28px 70px rgba(0, 0, 0, 0.4);
 }
+html,
+body {
+	min-height: 100%;
+}
 
 body {
     margin: 0;
@@ -21,7 +29,14 @@ body {
 		radial-gradient(circle at top left, rgba(110, 231, 216, 0.18), transparent 34%),
 		radial-gradient(circle at top right, rgba(255, 159, 67, 0.14), transparent 28%),
 		linear-gradient(160deg, var(--bg-1), var(--bg-2));
+    display: grid;
+	place-items: center;
+	padding: 24px;
 
+}
+
+.calculator-shell {
+	width: min(100%, 420px);
 }
 
 .calculator {
@@ -44,10 +59,58 @@ body {
 
 .calculator__keys {
     display: grid;
-    grid-template-columns: repeat(4,1fr);
-    gap: 10px;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+	gap: 12px;
 }
 
 .key {
-    padding: 15px;
+	appearance: none;
+	border: 0;
+	border-radius: 18px;
+	min-height: 64px;
+	font: inherit;
+	font-size: 1.1rem;
+	color: var(--text);
+	background: linear-gradient(180deg, rgba(255, 255, 255, 0.05), rgba(255, 255, 255, 0.02)), var(--key);
+	box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.06);
+	cursor: pointer;
+	transition: transform 140ms ease, background-color 140ms ease, box-shadow 140ms ease;
+}
+
+.key:hover {
+	background-color: var(--key-hover);
+	transform: translateY(-1px);
+}
+
+.key:active {
+	transform: translateY(1px) scale(0.99);
+}
+
+.key:focus-visible {
+	outline: 2px solid var(--accent);
+	outline-offset: 2px;
+}
+
+.key--utility {
+	color: #d6def0;
+}
+
+.key--operator,
+.key--equals {
+	background: linear-gradient(180deg, rgba(255, 255, 255, 0.18), rgba(255, 255, 255, 0.02)), var(--operator);
+	color: #1b1207;
+	font-weight: 700;
+}
+
+.key--operator:hover,
+.key--equals:hover {
+	background-color: var(--operator-hover);
+}
+
+.key--equals {
+	grid-column: span 2;
+}
+
+.key--wide {
+	grid-column: span 2;
 }
